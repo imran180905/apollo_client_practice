@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+
 const GET_CHARACTERS_QUERY = gql`
   query GetCharacters($page: Int!) {
     characters(page: $page) {
@@ -18,3 +19,4 @@ const GET_CHARACTERS_QUERY = gql`
     }
   }
 `;
+export default GET_CHARACTERS_QUERY;
