@@ -1,4 +1,4 @@
-import Hell from "@/components/hell";
+import Hell from "@/components/pagination";
 
 export default function Home() {
   return (

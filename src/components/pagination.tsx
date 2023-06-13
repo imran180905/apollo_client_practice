@@ -1,15 +1,16 @@
 import { useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GET_CHARACTERS_QUERY from "../queries/queries";
-const Hell = () => {
+const pagination = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [currentPage, setCurrentPage] = useState(1);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { loading, error, data, fetchMore } = useQuery(GET_CHARACTERS_QUERY, {
     variables: { page: currentPage },
   });
-  //   const { characters } = data;
-  useEffect(() => {
-    // console.log(data?.characters?.results);
-  }, [data]);
+
+  console.log(data?.characters?.info.prev);
+  console.log(data?.characters?.info.next);
 
   const pageSize = 10;
 
@@ -51,14 +52,15 @@ const Hell = () => {
         ))}
       {!loading && data.characters.info.next && (
         <>
-          <button onClick={handlePre}>previous</button>
+          <button onClick={handlePre}>pre</button>
           <button onClick={handleNext}>next</button>
           <br></br>
           <button onClick={loadMoreCharacters}>Load</button>
+          <p>Page no:{currentPage}</p>
         </>
       )}
     </div>
   );
 };
 
-export default Hell;
+export default pagination;
