@@ -1,9 +1,8 @@
-import Hell from "@/components/pagination";
-
+import Pagination from "./pagination";
 export default function Home() {
   return (
     <main>
-      <Hell />
+      <Pagination />
     </main>
   );
 }

@@ -1,11 +1,11 @@
+import { paginationQuery } from "@/queries/queries";
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
-import GET_CHARACTERS_QUERY from "../queries/queries";
-const pagination = () => {
+const Pagination = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [currentPage, setCurrentPage] = useState(1);
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { loading, error, data, fetchMore } = useQuery(GET_CHARACTERS_QUERY, {
+  const { loading, error, data, fetchMore } = useQuery(paginationQuery, {
     variables: { page: currentPage },
   });
 
@@ -63,4 +63,4 @@ const pagination = () => {
   );
 };
 
-export default pagination;
+export default Pagination;

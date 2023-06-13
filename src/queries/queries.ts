@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-const GET_CHARACTERS_QUERY = gql`
+export const paginationQuery = gql`
   query GetCharacters($page: Int!) {
     characters(page: $page) {
       info {
@@ -19,4 +19,25 @@ const GET_CHARACTERS_QUERY = gql`
     }
   }
 `;
-export default GET_CHARACTERS_QUERY;
+
+export const searchQuery = gql`
+  query GetCharacters($page: Int!, $name: String) {
+    characters(page: $page, filter: { name: $name }) {
+      info {
+        count
+        pages
+        next
+        prev
+      }
+      results {
+        id
+        name
+        status
+        species
+        type
+      }
+    }
+  }
+`;
+// eslint-disable-next-line import/no-anonymous-default-export
+// export default { PAGINATION, GET_CHARACTERS_QUERY };
