@@ -1,9 +1,9 @@
-// import Search from "@/components/search";
+import Search from "@/components/search";
 
-// export default function searchByName() {
-//   return (
-//     <div>
-//       <Search />
-//     </div>
-//   );
-// }
+export default function searchByName() {
+  return (
+    <div>
+      <Search />
+    </div>
+  );
+}

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const paginationQuery = gql`
-  query GetCharacters($page: Int!) {
-    characters(page: $page) {
+  query GetCharacters($page: Int!, $name: String) {
+    characters(page: $page, filter: { name: $name }) {
       info {
         count
         pages
