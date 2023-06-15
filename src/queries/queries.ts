@@ -39,5 +39,29 @@ export const searchQuery = gql`
     }
   }
 `;
-// eslint-disable-next-line import/no-anonymous-default-export
-// export default { PAGINATION, GET_CHARACTERS_QUERY };
+// news Asset Apis
+
+// Create user mutation
+
+export const createUserQuery = gql`
+  mutation CeateNewsAsset(
+    $name: String!
+    $url: String!
+    $description: String
+    $public_status: String!
+    $newsAssetCategory: [String]
+    $rss: [String]
+  ) {
+    createNewsAsset(
+      name: $name
+      url: $url
+      description: $description
+      public_status: $public_status # EVERYONE/APPROVAL_REQUIRED
+      newsAssetCategory: $newsAssetCategory
+      rss: $rss
+    ) {
+      message
+      newsAssetId
+    }
+  }
+`;

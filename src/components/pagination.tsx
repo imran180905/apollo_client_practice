@@ -103,7 +103,10 @@ const Pagination = () => {
       )}
 
       {!loading && data.characters.info.prev && (
-        <button onClick={handlePre}>Prev</button>
+        <button onClick={handlePre}>
+          {/* disabled={currentPage == 1 ? true : false} */}
+          Prev
+        </button>
       )}
 
       <br />
