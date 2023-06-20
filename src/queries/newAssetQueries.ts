@@ -44,9 +44,9 @@ export const getNewsListQuery = gql`
   }
 `;
 
-// Create user mutation
+// CreateNewsAsset
 
-export const createUserQuery = gql`
+export const createNewsAsset = gql`
   mutation CeateNewsAsset(
     $name: String!
     $url: String!
@@ -65,6 +65,30 @@ export const createUserQuery = gql`
     ) {
       message
       newsAssetId
+    }
+  }
+`;
+
+// Update news asset
+
+export const updateNewsAsset = gql`
+  mutation UpdateNewsAsset(
+    $newsAssetId: ID!
+    $name: String!
+    $url: String!
+    $description: String
+    $public_status: String!
+    $newsAssetCategory: [String]
+  ) {
+    updateNewsAsset(
+      newsAssetId: $newsAssetId
+      name: $name
+      url: $url
+      description: $description
+      public_status: $public_status # EVERYONE/APPROVAL_REQUIRED
+      newsAssetCategory: $newsAssetCategory
+    ) {
+      message
     }
   }
 `;

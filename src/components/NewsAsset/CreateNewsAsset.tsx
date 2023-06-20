@@ -1,13 +1,16 @@
 import client from "@/graphqlClents/client";
-import { createUserQuery, getNewsListQuery } from "@/queries/newAssetQueries";
+import { createNewsAsset, getNewsListQuery } from "@/queries/newAssetQueries";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 
-export default function CreateUser({ setCurrentPage }: number) {
+export default function CreateNewsAsset({ setCurrentPage }: any) {
   const [name, setName] = useState<string>("");
-  const [createUser, { error, loading }] = useMutation(createUserQuery, {
-    fetchPolicy: "no-cache",
-  });
+  const [createNewsAssetFunction, { error, loading }] = useMutation(
+    createNewsAsset,
+    {
+      fetchPolicy: "no-cache",
+    }
+  );
 
   const handleName = (e: any) => {
     e.preventDefault();
@@ -16,7 +19,7 @@ export default function CreateUser({ setCurrentPage }: number) {
   };
 
   const handleCreate = async () => {
-    createUser({
+    createNewsAssetFunction({
       variables: {
         name: name,
         url: "https://footbahll.com",
@@ -29,7 +32,6 @@ export default function CreateUser({ setCurrentPage }: number) {
     setName("");
 
     await client.refetchQueries({
-      // include: [getNewsListQuery]
       include: [getNewsListQuery],
     });
     setCurrentPage(1);
@@ -38,19 +40,18 @@ export default function CreateUser({ setCurrentPage }: number) {
   return (
     <div>
       {loading && <p>Loading.....</p>}
-      {!loading && (
-        <div>
-          <input
-            style={{ border: "1px solid purple", padding: "4px" }}
-            onChange={handleName}
-            placeholder="name"
-            type="text"
-            value={name}
-          ></input>
 
-          <button onClick={handleCreate}>Create</button>
-        </div>
-      )}
+      <div>
+        <input
+          style={{ border: "1px solid purple", padding: "4px" }}
+          onChange={handleName}
+          placeholder="name"
+          type="text"
+          value={name}
+        ></input>
+
+        <button onClick={handleCreate}>Create</button>
+      </div>
     </div>
   );
 }

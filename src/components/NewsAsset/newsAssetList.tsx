@@ -1,15 +1,17 @@
 import { getNewsListQuery } from "@/queries/newAssetQueries";
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
-import CreateUser from "./createUser";
+import CreateNewsAsset from "./CreateNewsAsset";
+import UpdateNews from "./updateNews";
 
 const NewsAssetList = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [id, setId] = useState(" ");
 
   const { loading, error, data, refetch } = useQuery(getNewsListQuery, {
     variables: {
       searchWord: "",
-      page: currentPage,
+      pageNumber: currentPage,
       perPage: 10,
     },
     fetchPolicy: "no-cache",
@@ -22,26 +24,41 @@ const NewsAssetList = () => {
   const handleNext = () => {
     setCurrentPage(currentPage + 1);
   };
+  const handleEdit = (id: string) => {
+    setId(id);
+  };
 
   return (
-    <div>
-      news asset list refetch()
-      {data?.getRegisteredNewsAssetList?.newsAssetList.map(
-        (news: any, index: number) => {
-          return (
-            <div key={index}>
-              <h1>{news.asseetName}</h1>
-              <h1>{news.assetURL}</h1>
-              <br />
-            </div>
-          );
-        }
-      )}
-      <CreateUser setCurrentPage={setCurrentPage} />
-      <button onClick={handlePre}>Prev</button>
-      <button onClick={handleNext}>next</button>
-      <p>{currentPage}</p>
-    </div>
+    <>
+      <div>
+        {data?.getRegisteredNewsAssetList?.newsAssetList.map(
+          (news: any, index: number) => {
+            return (
+              <div key={index}>
+                <h1>{news.asseetName}</h1>
+                <div>
+                  <button onClick={() => handleEdit(news.newsAssetId)}>
+                    Edit
+                  </button>
+                </div>
+
+                <br />
+              </div>
+            );
+          }
+        )}
+        <UpdateNews
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          newsAssetId={id}
+        />
+        <br />
+        <CreateNewsAsset setCurrentPage={setCurrentPage} />
+        <button onClick={handlePre}>Prev</button>
+        <button onClick={handleNext}>next</button>
+        <p>{currentPage}</p>
+      </div>
+    </>
   );
 };
 
