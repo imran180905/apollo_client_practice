@@ -11,7 +11,7 @@ yarn dev
 # or
 pnpm dev
 ```
-
+For testing purposes, we used Rick and Morty API..
 1. Open [http://localhost:3000/pagination](http://localhost:3000/pagination) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
