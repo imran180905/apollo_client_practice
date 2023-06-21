@@ -4,7 +4,7 @@ import { useState } from "react";
 import CreateNewsAsset from "./CreateNewsAsset";
 import UpdateNews from "./updateNews";
 
-const NewsAssetList = () => {
+const NewsAssetList1 = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [id, setId] = useState(" ");
 
@@ -63,4 +63,4 @@ const NewsAssetList = () => {
   );
 };
 
-export default NewsAssetList;
+export default NewsAssetList1;

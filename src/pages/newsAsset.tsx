@@ -1,9 +1,9 @@
-import NewsAssetList from "@/components/NewsAsset/newsAssetList";
+import NewsAssetList1 from "@/components/NewsAsset/newsAssetList1";
 
 const NewsAsset = () => {
   return (
     <div>
-      <NewsAssetList />
+      <NewsAssetList1 />
     </div>
   );
 };
