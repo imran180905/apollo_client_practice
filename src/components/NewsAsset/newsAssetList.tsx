@@ -8,7 +8,7 @@ const NewsAssetList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [id, setId] = useState(" ");
 
-  const { loading, error, data, refetch } = useQuery(getNewsListQuery, {
+  const { loading, error, data } = useQuery(getNewsListQuery, {
     variables: {
       searchWord: "",
       pageNumber: currentPage,
@@ -26,6 +26,7 @@ const NewsAssetList = () => {
   };
   const handleEdit = (id: string) => {
     setId(id);
+    console.log(id);
   };
 
   return (

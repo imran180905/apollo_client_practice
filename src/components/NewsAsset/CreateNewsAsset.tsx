@@ -1,5 +1,5 @@
 import client from "@/graphqlClents/client";
-import { createNewsAsset, getNewsListQuery } from "@/queries/newAssetQueries";
+import { createNewsAsset } from "@/queries/newAssetQueries";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 
@@ -32,8 +32,10 @@ export default function CreateNewsAsset({ setCurrentPage }: any) {
     setName("");
 
     await client.refetchQueries({
-      include: [getNewsListQuery],
+      // include: [getNewsListQuery],
+      include: "active",
     });
+
     setCurrentPage(1);
   };
 
