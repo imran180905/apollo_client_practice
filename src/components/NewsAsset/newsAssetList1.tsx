@@ -14,11 +14,11 @@ const NewsAssetList1 = () => {
       pageNumber: currentPage,
       perPage: 10,
     },
-    fetchPolicy: "no-cache",
+    fetchPolicy: "no-cache", // to not query data in cache and data fetched in every request
   });
   console.log(data?.getRegisteredNewsAssetList?.newsAssetList);
 
-  const handlePre = () => {
+  const handlePrev = () => {
     setCurrentPage(currentPage - 1);
   };
   const handleNext = () => {
@@ -55,7 +55,7 @@ const NewsAssetList1 = () => {
         />
         <br />
         <CreateNewsAsset setCurrentPage={setCurrentPage} />
-        <button onClick={handlePre}>Prev</button>
+        <button onClick={handlePrev}>Prev</button>
         <button onClick={handleNext}>next</button>
         <p>{currentPage}</p>
       </div>

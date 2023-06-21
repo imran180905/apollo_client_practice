@@ -8,7 +8,7 @@ export default function CreateNewsAsset({ setCurrentPage }: any) {
   const [createNewsAssetFunction, { error, loading }] = useMutation(
     createNewsAsset,
     {
-      fetchPolicy: "no-cache",
+      fetchPolicy: "no-cache", // to not query data in cache and data fetched in every request
     }
   );
 
@@ -24,7 +24,7 @@ export default function CreateNewsAsset({ setCurrentPage }: any) {
         name: name,
         url: "https://footbahll.com",
         description: "football world cup",
-        public_status: "EVERYONE",
+        public_status: "EVERYONE", // EVERYONE or APPROVAL_REQUIRED
         newsAssetCategory: ["football", "sports"],
         rss: ["https://prothom-alo.com/rss", "https://jugantor.com/rss"],
       },
@@ -33,7 +33,7 @@ export default function CreateNewsAsset({ setCurrentPage }: any) {
 
     await client.refetchQueries({
       // include: [getNewsListQuery],
-      include: "active",
+      include: "active", // Refetch data after create
     });
 
     setCurrentPage(1);

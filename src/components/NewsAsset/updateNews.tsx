@@ -1,5 +1,5 @@
 import client from "@/graphqlClents/client";
-import { updateNewsAsset } from "@/queries/newAssetQueries";
+import { getNewsListQuery, updateNewsAsset } from "@/queries/newAssetQueries";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 
@@ -42,8 +42,8 @@ export default function UpdateNews({
     setName("");
 
     await client.refetchQueries({
-      // include: [getNewsListQuery],
-      include: "active",
+      include: [getNewsListQuery],
+      // include: "active", // Refetch data after update
     });
     setCurrentPage(currentPage);
   };

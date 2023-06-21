@@ -1,8 +1,9 @@
+import NewsAssetList from "@/components/NewsAsset/newsAssetList";
+
 export default function Home() {
   return (
     <main>
-      {/* <Pagination /> */}
-      {/* <NewsAsset /> */}
+      <NewsAssetList />
     </main>
   );
 }
