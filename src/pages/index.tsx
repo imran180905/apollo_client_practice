@@ -1,9 +1,11 @@
-import NewsAssetList from "@/components/NewsAsset/newsAssetList";
+// import NewsAssetFetchMore from "@/components/NewsAsset/NewsAssetFetchMore";
+
+import NewsAssetFetchMore from "@/components/NewsAsset/NewsAssetFetchMore";
 
 export default function Home() {
   return (
     <main>
-      <NewsAssetList />
+      <NewsAssetFetchMore />
     </main>
   );
 }

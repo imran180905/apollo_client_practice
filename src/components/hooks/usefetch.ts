@@ -3,21 +3,29 @@ import { useQuery } from "@apollo/client";
 import _ from "lodash";
 import { useEffect, useState } from "react";
 
-export default function useFetch(perPage: number, setLoadfirst: any) {
+export default function useFetch(
+  perPage: number,
+  currentPage: number,
+  setLoadfirst: any
+) {
   const [name, setName] = useState("");
 
   useEffect(() => {
     if (loading) setLoadfirst(true);
   }, []);
 
-  const { loading, error, data, fetchMore } = useQuery(getNewsListQuery, {
-    variables: {
-      searchWord: name,
-      pageNumber: 1,
-      perPage: perPage,
-    },
-    notifyOnNetworkStatusChange: true, // true: adds loading status true for initial load and load more, false: adds loading status true only on initial load
-  });
+  const { loading, error, data, fetchMore, refetch } = useQuery(
+    getNewsListQuery,
+    {
+      variables: {
+        searchWord: name,
+        pageNumber: currentPage,
+        perPage: perPage,
+      },
+      notifyOnNetworkStatusChange: true, // true: adds loading status true for initial load and load more, false: adds loading status true only on initial load
+      fetchPolicy: "no-cache", // to not query data in cache and data fetched in every request
+    }
+  );
   console.log(data?.getRegisteredNewsAssetList?.newsAssetList);
 
   const loadMoreCharacters = () => {
@@ -35,10 +43,10 @@ export default function useFetch(perPage: number, setLoadfirst: any) {
         if (!fetchMoreResult) return prevResult;
         return {
           getRegisteredNewsAssetList: {
-            ...fetchMoreResult.getRegisteredNewsAssetList,
+            ...fetchMoreResult?.getRegisteredNewsAssetList,
             newsAssetList: [
-              ...prevResult.getRegisteredNewsAssetList.newsAssetList,
-              ...fetchMoreResult.getRegisteredNewsAssetList.newsAssetList,
+              ...prevResult?.getRegisteredNewsAssetList?.newsAssetList,
+              ...fetchMoreResult?.getRegisteredNewsAssetList?.newsAssetList,
             ],
           },
         };
@@ -51,5 +59,12 @@ export default function useFetch(perPage: number, setLoadfirst: any) {
   };
 
   const debouncedOnChange = _.debounce(handleChange, 1000);
-  return { debouncedOnChange, loadMoreCharacters, data, loading, name };
+  return {
+    debouncedOnChange,
+    loadMoreCharacters,
+    data,
+    loading,
+    name,
+    refetch,
+  };
 }

@@ -1,27 +1,25 @@
 import { useState } from "react";
 import useFetch from "../hooks/usefetch";
 
-const NewsAssetList = () => {
+const NewsAssetFetchMore = () => {
   const [loadfirst, setLoadfirst] = useState(false);
   const perPage = 10;
+  const currentPage = 1;
   const { debouncedOnChange, loadMoreCharacters, data, loading, name } =
-    useFetch(perPage, setLoadfirst);
+    useFetch(perPage, currentPage, setLoadfirst);
 
   return (
     <div>
       news asset list
-      <input
-        type="text"
-        onChange={debouncedOnChange}
-        value={name}
-        placeholder="search"
-      />
+      <input type="text" onChange={debouncedOnChange} placeholder="search" />
       {data?.getRegisteredNewsAssetList?.newsAssetList.map(
         (news: any, index: number) => {
           return (
             <div key={index}>
               <h1>{news.asseetName}</h1>
               <h1>{news.assetURL}</h1>
+              <h1>{news.publish_status}</h1>
+
               <br />
             </div>
           );
@@ -47,4 +45,4 @@ const NewsAssetList = () => {
   );
 };
 
-export default NewsAssetList;
+export default NewsAssetFetchMore;

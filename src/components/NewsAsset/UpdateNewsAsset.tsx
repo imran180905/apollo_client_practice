@@ -1,13 +1,24 @@
-import { useCreateNewsAsset } from "../hooks/useCreateNews";
+import { useUpdateNewsAsset } from "../hooks/useUpdateNews";
 
-function CreateNewsAsset({ setCurrentPage }: any) {
-  const { formik, loading, error } = useCreateNewsAsset(setCurrentPage);
+function UpdateNewsAsset({
+  setCurrentPage,
+  newsAssetId,
+  currentPage,
+  setToggleUpdateField,
+  toggleUpdateField,
+}: any) {
+  const { formik, loading, error } = useUpdateNewsAsset(
+    newsAssetId,
+    setCurrentPage,
+    currentPage,
+    setToggleUpdateField,
+    toggleUpdateField
+  );
 
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
         <input
-          className="mt-4"
           type="text"
           id="name"
           name="name"
@@ -17,7 +28,6 @@ function CreateNewsAsset({ setCurrentPage }: any) {
         />
         <br></br>
         <input
-          className="mt-4"
           type="text"
           id="url"
           name="url"
@@ -27,7 +37,6 @@ function CreateNewsAsset({ setCurrentPage }: any) {
         />
         <br></br>
         <textarea
-          className="mt-4"
           id="description"
           name="description"
           value={formik.values.description}
@@ -35,7 +44,6 @@ function CreateNewsAsset({ setCurrentPage }: any) {
           placeholder="Description"
         />
         <br></br>
-
         <div>
           <select
             name="publicStatus"
@@ -51,7 +59,6 @@ function CreateNewsAsset({ setCurrentPage }: any) {
         </div>
         <br></br>
         <input
-          className="mt-4 w-96"
           type="text"
           id="categories"
           name="categories"
@@ -60,22 +67,14 @@ function CreateNewsAsset({ setCurrentPage }: any) {
           placeholder="Categories (comma-separated)"
         />
         <br></br>
-        <input
-          className="mt-4 w-96"
-          type="text"
-          id="rssFeeds"
-          name="rssFeeds"
-          value={formik.values.rssFeeds}
-          onChange={formik.handleChange}
-          placeholder="RSS Feeds (comma-separated)"
-        />
+
         <br></br>
         <button
           className="border p-2 bg-gray-200 mt-3 "
           type="submit"
           disabled={loading}
         >
-          Create News Asset
+          Update News Asset
         </button>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error.message}</p>}
@@ -83,4 +82,4 @@ function CreateNewsAsset({ setCurrentPage }: any) {
     </div>
   );
 }
-export default CreateNewsAsset;
+export default UpdateNewsAsset;
