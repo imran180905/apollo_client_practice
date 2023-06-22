@@ -1,22 +1,19 @@
 import { useState } from "react";
+
+import useDeleteNews from "../hooks/useDeleteNews";
 import useFetch from "../hooks/usefetch";
 import CreateNewsAsset from "./CreateNewsAsset";
 import UpdateNewsAsset from "./UpdateNewsAsset";
 
 const NewsAssetList1 = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [loadfirst, setLoadfirst] = useState(false);
   const [toggleUpdateField, setToggleUpdateField] = useState(false);
-  const perPage = 10;
 
   const [id, setId] = useState(" ");
+  const perPage = 10;
+  const { debouncedOnChange, data, refetch } = useFetch(perPage, currentPage);
 
-  const { debouncedOnChange, loadMoreCharacters, data, refetch } = useFetch(
-    perPage,
-    currentPage,
-    setLoadfirst
-  );
-
+  const { handleDelete } = useDeleteNews(setCurrentPage, refetch); // Delete custom hook call
   console.log(data?.getRegisteredNewsAssetList?.newsAssetList);
 
   const handlePrev = () => {
@@ -30,13 +27,11 @@ const NewsAssetList1 = () => {
     setToggleUpdateField(!toggleUpdateField);
     console.log(id);
   };
-  // const AssetId= router.query.slug
 
   return (
     <>
       <div>
         <input type="text" onChange={debouncedOnChange} placeholder="search" />
-
         {data?.getRegisteredNewsAssetList?.newsAssetList.map(
           (news: any, index: number) => {
             return (
@@ -51,6 +46,9 @@ const NewsAssetList1 = () => {
                   <button onClick={() => handleEdit(news.newsAssetId)}>
                     Edit
                   </button>
+                  <button onClick={() => handleDelete(news.newsAssetId)}>
+                    Delete
+                  </button>
                 </div>
 
                 <br />
@@ -60,7 +58,6 @@ const NewsAssetList1 = () => {
         )}
 
         <br />
-        {/* <CreateNewsAsset setCurrentPage={setCurrentPage} /> */}
         <CreateNewsAsset setCurrentPage={setCurrentPage} />
         <br />
         {toggleUpdateField && (

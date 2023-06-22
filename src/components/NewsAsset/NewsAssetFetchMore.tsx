@@ -1,12 +1,11 @@
 import { useState } from "react";
-import useFetch from "../hooks/usefetch";
+import useFetchMore from "../hooks/useFetchMore";
 
 const NewsAssetFetchMore = () => {
   const [loadfirst, setLoadfirst] = useState(false);
   const perPage = 10;
-  const currentPage = 1;
   const { debouncedOnChange, loadMoreCharacters, data, loading, name } =
-    useFetch(perPage, currentPage, setLoadfirst);
+    useFetchMore(perPage, setLoadfirst);
 
   return (
     <div>
@@ -18,8 +17,6 @@ const NewsAssetFetchMore = () => {
             <div key={index}>
               <h1>{news.asseetName}</h1>
               <h1>{news.assetURL}</h1>
-              <h1>{news.publish_status}</h1>
-
               <br />
             </div>
           );

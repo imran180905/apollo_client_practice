@@ -1,5 +1,3 @@
-// import NewsAssetFetchMore from "@/components/NewsAsset/NewsAssetFetchMore";
-
 import NewsAssetFetchMore from "@/components/NewsAsset/NewsAssetFetchMore";
 
 export default function Home() {

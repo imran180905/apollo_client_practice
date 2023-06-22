@@ -37,7 +37,7 @@ export const useCreateNewsAsset = (setCurrentPage: any) => {
 
         await client.refetchQueries({
           include: [getNewsListQuery],
-          //   include: "active",                // Refetch data after create
+          //   include: "active",   // Refetch data after create
         });
 
         // Reset form field values after successful submission

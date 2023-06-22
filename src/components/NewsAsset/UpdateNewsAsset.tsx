@@ -7,6 +7,7 @@ function UpdateNewsAsset({
   setToggleUpdateField,
   toggleUpdateField,
 }: any) {
+  //call Update news asset custom hook
   const { formik, loading, error } = useUpdateNewsAsset(
     newsAssetId,
     setCurrentPage,

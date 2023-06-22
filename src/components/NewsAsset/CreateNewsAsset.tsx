@@ -1,7 +1,7 @@
 import { useCreateNewsAsset } from "../hooks/useCreateNews";
 
 function CreateNewsAsset({ setCurrentPage }: any) {
-  const { formik, loading, error } = useCreateNewsAsset(setCurrentPage);
+  const { formik, loading, error } = useCreateNewsAsset(setCurrentPage); // call create News Asset custom hook
 
   return (
     <div>
