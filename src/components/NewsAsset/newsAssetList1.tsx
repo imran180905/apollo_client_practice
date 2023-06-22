@@ -1,21 +1,18 @@
-import { getNewsListQuery } from "@/queries/newAssetQueries";
-import { useQuery } from "@apollo/client";
+
 import { useState } from "react";
+import useFetch from "../hooks/usefetch";
 import CreateNewsAsset from "./CreateNewsAsset";
 import UpdateNews from "./updateNews";
+import useDeleteNews from "../hooks/useDeleteNews";
 
 const NewsAssetList1 = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [id, setId] = useState(" ");
+  const perPage = 10;
+  const { debouncedOnChange, data, refetch } =
+    useFetch(perPage, currentPage);
 
-  const { loading, error, data } = useQuery(getNewsListQuery, {
-    variables: {
-      searchWord: "",
-      pageNumber: currentPage,
-      perPage: 10,
-    },
-    fetchPolicy: "no-cache", // to not query data in cache and data fetched in every request
-  });
+  const { handleDelete } = useDeleteNews(setCurrentPage, refetch)
   console.log(data?.getRegisteredNewsAssetList?.newsAssetList);
 
   const handlePrev = () => {
@@ -29,9 +26,16 @@ const NewsAssetList1 = () => {
     console.log(id);
   };
 
+
   return (
     <>
       <div>
+        <input
+          type="text"
+          onChange={debouncedOnChange}
+          // value={name}
+          placeholder="search"
+        />
         {data?.getRegisteredNewsAssetList?.newsAssetList.map(
           (news: any, index: number) => {
             return (
@@ -41,6 +45,7 @@ const NewsAssetList1 = () => {
                   <button onClick={() => handleEdit(news.newsAssetId)}>
                     Edit
                   </button>
+                  <button onClick={() => handleDelete(news.newsAssetId)}>Delete</button>
                 </div>
 
                 <br />

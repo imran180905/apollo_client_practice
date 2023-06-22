@@ -10,7 +10,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization:  `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MzYzMWMzYTEyZGY2ODk1Y2I5MGE0YSIsImVtYWlsIjoibW9uaXIyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc19yZWdpc3RlcmVkIjp0cnVlLCJpYXQiOjE2ODY3OTk2MTEsImV4cCI6MTY4NzQwNDQxMX0.JHxBr3ddkdp0_JJikWcfk9OgSqkZFRy_M-dBXp15XmM` ,
+      authorization:  `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MzYzMWMzYTEyZGY2ODk1Y2I5MGE0YSIsImVtYWlsIjoibW9uaXIyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc19yZWdpc3RlcmVkIjp0cnVlLCJpYXQiOjE2ODc0MDQ2NjYsImV4cCI6MTY4ODAwOTQ2Nn0.Xb0-k6xBH_uIA73m6v7Wdn2NATKFxg6w8FUvZtT_89s` ,
     }
   }
 });

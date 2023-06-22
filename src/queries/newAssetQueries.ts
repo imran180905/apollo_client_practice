@@ -92,3 +92,17 @@ export const updateNewsAsset = gql`
     }
   }
 `;
+
+//delete news asset
+export const deleteNewsAsset = gql`
+mutation DeleteNewsAsset(
+        $newsAssetId: ID! 
+        $confirmText: String!
+    ) {
+    deleteNewsAsset(
+        newsAssetId: $newsAssetId
+        confirmText: $confirmText
+    ) {
+        message
+    }
+}`
