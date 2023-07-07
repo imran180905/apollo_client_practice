@@ -15,13 +15,32 @@ export default function useDeleteNews(setCurrentPage: any, refetch: any) {
         newsAssetId: id,
         confirmText: "Delete this news asset",
       },
+    }).then((value) => {
+      console.log("then 1")
+      console.log(value)
+      setCurrentPage(1);
+      // Expected output: "Success!"
+    }).then((value) => {
+      console.log("then 2")
+      console.log(value)
+      refetch();
+      // Expected output: "Success!"
+    }).catch((error) => {
+      console.log("catch error")
+      console.log(error)
+      // Expected output: "Success!"
+    }).finally(() => {
+      console.log("finally")
+      
+      // Expected output: "Success!"
     });
-    // refetch();
-    await client.refetchQueries({
-      include: [getNewsListQuery],
-      //   include:"all",
-    });
-    setCurrentPage(1);
+    ;
+  
+    // await client.refetchQueries({
+    //   include: [getNewsListQuery],
+    //   //   include:"all",
+    // });
+    
   };
   return { handleDelete };
 }

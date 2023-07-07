@@ -1,32 +1,19 @@
 import { useState } from "react";
-
 import useDeleteNews from "../hooks/useDeleteNews";
 import useFetch from "../hooks/usefetch";
+import { useUpdateNewsAsset } from "../hooks/useUpdateNews";
 import CreateNewsAsset from "./CreateNewsAsset";
-import UpdateNewsAsset from "./UpdateNewsAsset";
 
 const NewsAssetList1 = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [toggleUpdateField, setToggleUpdateField] = useState(false);
 
-  const [id, setId] = useState(" ");
-  const perPage = 10;
-  const { debouncedOnChange, data, refetch } = useFetch(perPage, currentPage);
+  const { debouncedOnChange, data, refetch, handleNext, handlePrev, setCurrentPage, currentPage } = useFetch();
+
+  const { handleEdit, toggleUpdateField, formik, loading, error } = useUpdateNewsAsset();
 
   const { handleDelete } = useDeleteNews(setCurrentPage, refetch); // Delete custom hook call
   console.log(data?.getRegisteredNewsAssetList?.newsAssetList);
 
-  const handlePrev = () => {
-    setCurrentPage(currentPage - 1);
-  };
-  const handleNext = () => {
-    setCurrentPage(currentPage + 1);
-  };
-  const handleEdit = (id: string) => {
-    setId(id);
-    setToggleUpdateField(!toggleUpdateField);
-    console.log(id);
-  };
+
 
   return (
     <>
@@ -43,7 +30,7 @@ const NewsAssetList1 = () => {
                 <br />
 
                 <div>
-                  <button onClick={() => handleEdit(news.newsAssetId)}>
+                  <button onClick={() => handleEdit(news)}>
                     Edit
                   </button>
                   <button onClick={() => handleDelete(news.newsAssetId)}>
@@ -61,13 +48,77 @@ const NewsAssetList1 = () => {
         <CreateNewsAsset setCurrentPage={setCurrentPage} />
         <br />
         {toggleUpdateField && (
-          <UpdateNewsAsset
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            newsAssetId={id}
-            setToggleUpdateField={setToggleUpdateField}
-            toggleUpdateField={toggleUpdateField}
-          />
+          <div>
+            <form onSubmit={formik.handleSubmit}>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formik?.values?.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="Name"
+              />
+              {formik.errors.name && formik.touched.name && <p className="text-red-500">{formik.errors.name}</p>}
+              <br></br>
+              <input
+                type="text"
+                id="url"
+                name="url"
+                value={formik?.values?.url}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="URL"
+              />
+              {formik?.errors?.url && <p className="text-red-500">{formik.errors.url}</p>}
+              <br></br>
+              <textarea
+                id="description"
+                name="description"
+                value={formik?.values?.description}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="Description"
+              />
+              <br></br>
+              <div>
+                <select
+                  name="publicStatus"
+                  value={formik?.values?.publicStatus}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  style={{ display: "block" }}
+                >
+                  <option value="" label="Select a Status" />
+                  <option value="EVERYONE" label="EVERYONE" />
+                  <option value="APPROVAL_REQUIRED" label="APPROVAL_REQUIRED" />
+                </select>
+              </div>
+              {formik?.errors?.publicStatus && formik?.touched.publicStatus && <p className="text-red-500">{formik.errors.publicStatus}</p>}
+              <br></br>
+              <input
+                type="text"
+                id="categories"
+                name="categories"
+                value={formik.values.categories}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="Categories (comma-separated)"
+              />
+              <br></br>
+
+              <br></br>
+              <button
+                className="border p-2 bg-gray-200 mt-3 "
+                type="submit"
+                disabled={loading}
+              >
+                Update News Asset
+              </button>
+              {loading && <p>Loading...</p>}
+
+            </form>
+          </div>
         )}
 
         <button onClick={handlePrev}>Prev</button>

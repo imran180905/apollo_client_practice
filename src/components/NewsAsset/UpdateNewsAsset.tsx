@@ -1,20 +1,10 @@
+import { Dispatch, SetStateAction } from "react";
 import { useUpdateNewsAsset } from "../hooks/useUpdateNews";
 
-function UpdateNewsAsset({
-  setCurrentPage,
-  newsAssetId,
-  currentPage,
-  setToggleUpdateField,
-  toggleUpdateField,
-}: any) {
-  //call Update news asset custom hook
-  const { formik, loading, error } = useUpdateNewsAsset(
-    newsAssetId,
-    setCurrentPage,
-    currentPage,
-    setToggleUpdateField,
-    toggleUpdateField
-  );
+
+
+function UpdateNewsAsset(formik: any, loading: any) {
+
 
   return (
     <div>
@@ -23,32 +13,37 @@ function UpdateNewsAsset({
           type="text"
           id="name"
           name="name"
-          value={formik.values.name}
+          value={formik?.values?.name}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="Name"
         />
+        {formik.errors.name && formik.touched.name && <p className="text-red-500">{formik.errors.name}</p>}
         <br></br>
         <input
           type="text"
           id="url"
           name="url"
-          value={formik.values.url}
+          value={formik?.values?.url}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="URL"
         />
+        {formik?.errors?.url && <p className="text-red-500">{formik.errors.url}</p>}
         <br></br>
         <textarea
           id="description"
           name="description"
-          value={formik.values.description}
+          value={formik?.values?.description}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="Description"
         />
         <br></br>
         <div>
           <select
             name="publicStatus"
-            value={formik.values.publicStatus}
+            value={formik?.values?.publicStatus}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             style={{ display: "block" }}
@@ -58,6 +53,7 @@ function UpdateNewsAsset({
             <option value="APPROVAL_REQUIRED" label="APPROVAL_REQUIRED" />
           </select>
         </div>
+        {formik?.errors?.publicStatus && formik?.touched.publicStatus && <p className="text-red-500">{formik.errors.publicStatus}</p>}
         <br></br>
         <input
           type="text"
@@ -65,6 +61,7 @@ function UpdateNewsAsset({
           name="categories"
           value={formik.values.categories}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="Categories (comma-separated)"
         />
         <br></br>
@@ -78,7 +75,7 @@ function UpdateNewsAsset({
           Update News Asset
         </button>
         {loading && <p>Loading...</p>}
-        {error && <p>Error: {error.message}</p>}
+
       </form>
     </div>
   );

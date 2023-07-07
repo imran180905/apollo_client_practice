@@ -13,8 +13,10 @@ function CreateNewsAsset({ setCurrentPage }: any) {
           name="name"
           value={formik.values.name}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="Name"
         />
+        {formik.errors.name && formik.touched.name && <p className="text-red-500">{formik.errors.name}</p>}
         <br></br>
         <input
           className="mt-4"
@@ -23,8 +25,10 @@ function CreateNewsAsset({ setCurrentPage }: any) {
           name="url"
           value={formik.values.url}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="URL"
         />
+        {formik.errors.url && formik.touched.url && <p className="text-red-500">{formik.errors.url}</p>}
         <br></br>
         <textarea
           className="mt-4"
@@ -32,6 +36,7 @@ function CreateNewsAsset({ setCurrentPage }: any) {
           name="description"
           value={formik.values.description}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="Description"
         />
         <br></br>
@@ -49,6 +54,7 @@ function CreateNewsAsset({ setCurrentPage }: any) {
             <option value="APPROVAL_REQUIRED" label="APPROVAL_REQUIRED" />
           </select>
         </div>
+        {formik.errors.publicStatus && formik.touched.publicStatus && <p className="text-red-500">{formik.errors.publicStatus && formik.errors.publicStatus}</p>}
         <br></br>
         <input
           className="mt-4 w-96"
@@ -57,18 +63,21 @@ function CreateNewsAsset({ setCurrentPage }: any) {
           name="categories"
           value={formik.values.categories}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="Categories (comma-separated)"
         />
         <br></br>
         <input
           className="mt-4 w-96"
           type="text"
-          id="rssFeeds"
-          name="rssFeeds"
-          value={formik.values.rssFeeds}
+          id="rss"
+          name="rss"
+          value={formik.values.rss}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="RSS Feeds (comma-separated)"
         />
+        {formik.errors.rss && formik.touched.rss && <p className="text-red-500">{formik.errors.rss && formik.errors.rss}</p>}
         <br></br>
         <button
           className="border p-2 bg-gray-200 mt-3 "
