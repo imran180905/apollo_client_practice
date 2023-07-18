@@ -11,6 +11,7 @@ const GetCharacter = () => {
     const [totalP, setTotalP] = useState(0);
     const [gender, setGender] = useState<string>("")
 
+
     const { data, error, loading } = useQuery(GET_CHARACTERS, {
         variables: {
             page: currentPage,
@@ -29,6 +30,26 @@ const GetCharacter = () => {
     }, [data])
 
 
+
+const getPageRange = () => {
+    const pageRange = [];
+    const maxPagesToShow = 5;
+    let startPage = currentPage;
+
+    if(currentPage >1 && currentPage< 4){
+        startPage = 1;
+    }else if ((totalP - currentPage) < Math.floor(maxPagesToShow / 2)) {
+      startPage = totalP - maxPagesToShow + 1;
+    } else if (currentPage > Math.ceil(maxPagesToShow / 2)) {
+      startPage = currentPage - Math.floor(maxPagesToShow / 2);
+    }
+
+    for (let i = 0; i < maxPagesToShow; i++) {
+      pageRange.push(startPage + i);
+    }
+
+    return pageRange;
+  };
     const prev = () => {
         if (prev !== null) {
             setCurrentPage(currentPage - 1);
@@ -44,44 +65,29 @@ const GetCharacter = () => {
         setName(e.target.value);
     }
 
+    const firstPage =() =>{
+        setCurrentPage(1)
+    }
+
+    const lastPage =() =>{
+        setCurrentPage(totalP);
+    }
+
     const handleGender = (e: any) => {
         e.preventDefault();
         setGender(e.target.value)
 
     }
 
-    const handleSort = (e: any) => {
-        const sortedResult = [...result];
-        sortedResult.sort((a, b) => {
-            console.log(a);
-            const nameA = a.name.toUpperCase();
-            const nameB = b.name.toUpperCase();
+   
 
-            if (nameA < nameB) {
-                return -1;
-            }
-            if (nameA > nameB) {
-                return 1;
-            } else {
-                return 0
-            }
-        })
-        setResult(sortedResult);
-    }
-
-    return (<div>
+    return (<>
         <input type="text"
             placeholder='search ny name'
             onChange={handleChange}
             value={name}
         />
-        {/* 
-        <select name="" id="">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Unknown">Unknown</option>
-        </select> */}
-
+      
         <div onChange={handleGender}>
             <input type="radio" value="Male" name="gender" /> Male
             <input type="radio" value="Female" name="gender" /> Female
@@ -93,10 +99,10 @@ const GetCharacter = () => {
 
         </div> */}
 
-        <button onClick={handleSort}>sort by name</button>
+        <button >sort by name</button>
         {loading && <div>loading...</div>}
         <div className='grid grid-cols-5'>
-            {!loading && result && result?.map((item, index) => {
+            {!loading && result && result?.map((item:any, index) => {
                 return (
                     <div key={index}>
                         <h1 >{item.name}</h1>
@@ -111,16 +117,29 @@ const GetCharacter = () => {
             }
         </div>
         <div className="flex">
-            <button className="px-4 border-1 " onClick={prev} disabled={currentPage == 1 ? true : false}>prev </button>
-            <button className="px-4 border-1 " onClick={() => setCurrentPage(1)} disabled={currentPage == 1 ? true : false}>1</button>
-            <button className="px-4 border-1 " onClick={() => setCurrentPage(2)} disabled={currentPage == 2 ? true : false}>2</button>
-            <p>...</p>
-            <button className="px-4 border-1 " onClick={() => setCurrentPage(totalP - 2)} disabled={currentPage == totalP - 2 ? true : false}>{totalP - 2}</button>
-            <button className="px-4 border-1 " onClick={() => setCurrentPage(totalP - 1)} disabled={currentPage == totalP - 1 ? true : false}>{totalP - 1}</button>
-            <button className="px-4 border-1 " onClick={() => setCurrentPage(totalP)} disabled={currentPage == totalP ? true : false}>{totalP}</button>
-            <button className="px-4 border-1 " onClick={next} disabled={nextP == null ? true : false}>next </button>
+        <button className="button-pagination" onClick={firstPage} disabled={currentPage == 1 ? true : false}>&laquo;</button>
+        <button className="button-pagination " onClick={prev} disabled={currentPage == 1 ? true : false}>&lt; </button>
+            
+            {getPageRange().map((page) => (
+        <button  
+          key={page}
+          onClick={() => setCurrentPage(page)}
+          disabled = {page == currentPage ? true : false}
+          className="button-pagination"
+        >
+          {page}
+        </button>
+
+      ))}
+            <button className="button-pagination" onClick={next} disabled={nextP == null ? true : false}>&gt;</button>
+            <button className="button-pagination " onClick={lastPage} disabled={nextP == null ? true : false}>&raquo;</button>
         </div>
-    </div>);
+
+      
+
+
+        
+    </>);
 }
 
 export default GetCharacter;

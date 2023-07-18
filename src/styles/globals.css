@@ -3,3 +3,6 @@
 @tailwind utilities;
 
 
+.button-pagination{
+    @apply px-4 py-2  rounded-md bg-slate-300 disabled:opacity-30 m-2 ;
+}
