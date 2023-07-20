@@ -1,13 +1,11 @@
-
-
-import GetCharacter from "@/components/getCharacter";
-
-
+import PaginationNew from "@/components/PaginationNew";
 
 export default function Home() {
   return (
     <main>
-      <GetCharacter />
+      {/* <GetCharacter /> */}
+      {/* <Pagination /> */}
+      <PaginationNew />
     </main>
-  )
+  );
 }

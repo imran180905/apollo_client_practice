@@ -5,7 +5,7 @@ import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ApolloProvider client={client} children={undefined}>
+    <ApolloProvider client={client}>
       <Component {...pageProps} />
     </ApolloProvider>
   );
